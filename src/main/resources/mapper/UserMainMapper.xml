@@ -1,0 +1,561 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tfs.register.preregister.mapper.UserMainMapper" >
+  <resultMap id="BaseResultMap" type="com.tfs.register.preregister.model.UserMain" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="USER_NM" property="userNm" jdbcType="VARCHAR" />
+    <result column="USER_ROLE" property="userRole" jdbcType="TINYINT" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="TRANS_PASSWORD" property="transPassword" jdbcType="VARCHAR" />
+    <result column="PROFILE_PATH" property="profilePath" jdbcType="VARCHAR" />
+    <result column="COMPANY_NM_EN" property="companyNmEn" jdbcType="VARCHAR" />
+    <result column="COMPANY_NM_LOCAL" property="companyNmLocal" jdbcType="VARCHAR" />
+    <result column="REPRESENTATIVE" property="representative" jdbcType="VARCHAR" />
+    <result column="HOMEPAGE" property="homepage" jdbcType="VARCHAR" />
+    <result column="COUNTRY" property="country" jdbcType="VARCHAR" />
+    <result column="REGISTER_ADDR" property="registerAddr" jdbcType="VARCHAR" />
+    <result column="REGISTER_ADDR_EN" property="registerAddrEn" jdbcType="VARCHAR" />
+    <result column="BIZ_ADDR" property="bizAddr" jdbcType="VARCHAR" />
+    <result column="TELEPHONE" property="telephone" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="CONTACT" property="contact" jdbcType="VARCHAR" />
+    <result column="CONTACT_TELEPHONE" property="contactTelephone" jdbcType="VARCHAR" />
+    <result column="FAX" property="fax" jdbcType="VARCHAR" />
+    <result column="EMPLOYEE_AMOUNT" property="employeeAmount" jdbcType="INTEGER" />
+    <result column="CORP_CLASSIFICATION" property="corpClassification" jdbcType="CHAR" />
+    <result column="BIZ_DESC" property="bizDesc" jdbcType="VARCHAR" />
+    <result column="MAIN_SHAREHOLDING_JSON" property="mainShareholdingJson" jdbcType="CHAR" />
+    <result column="MAIN_MANAGERS_JSON" property="mainManagersJson" jdbcType="CHAR" />
+    <result column="ASSOCIATE_COMPANY_JSON" property="associateCompanyJson" jdbcType="CHAR" />
+    <result column="EXPORT_BIZ_INFO_JSON" property="exportBizInfoJson" jdbcType="CHAR" />
+    <result column="ACC_BANK_ID" property="accBankId" jdbcType="CHAR" />
+    <result column="ACC" property="acc" jdbcType="VARCHAR" />
+    <result column="ACC_NM" property="accNm" jdbcType="VARCHAR" />
+    <result column="EXPORT_ACC_BANK_ID" property="exportAccBankId" jdbcType="CHAR" />
+    <result column="EXPORT_ACC" property="exportAcc" jdbcType="VARCHAR" />
+    <result column="EXPORT_ACC_NM" property="exportAccNm" jdbcType="VARCHAR" />
+    <result column="LOAN_AND_AMOUNT_JSON" property="loanAndAmountJson" jdbcType="CHAR" />
+    <result column="KEY_LOAN_BANK_JSON" property="keyLoanBankJson" jdbcType="CHAR" />
+    <result column="FINANCING_DEMAND_JSON" property="financingDemandJson" jdbcType="CHAR" />
+    <result column="COMPANY_FILES_JSON" property="companyFilesJson" jdbcType="CHAR" />
+    <result column="REG_TYPE" property="regType" jdbcType="CHAR" />
+    <result column="REG_TIME" property="regTime" jdbcType="TIMESTAMP" />
+    <result column="REG_IP" property="regIp" jdbcType="VARCHAR" />
+    <result column="MOD_TIME" property="modTime" jdbcType="TIMESTAMP" />
+    <result column="MOD_IP" property="modIp" jdbcType="VARCHAR" />
+    <result column="LAST_LOGIN_TIME" property="lastLoginTime" jdbcType="TIMESTAMP" />
+    <result column="LAST_LOGIN_IP" property="lastLoginIp" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="PreregisterResultMap" type="com.tfs.register.preregister.model.Company" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="COMPANY_NM_EN" property="companyName" jdbcType="VARCHAR" />
+    <result column="COMPANY_NM_LOCAL" property="companyNameLocal" jdbcType="VARCHAR" />
+    <result column="BIZ_ADDR" property="companyAddress" jdbcType="VARCHAR" />
+    <result column="TELEPHONE" property="telephone" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="txtEmail" jdbcType="VARCHAR" />
+    <result column="CONTACT" property="contactPerson" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Preregister_Column_List" >
+    COMPANY_NM_EN, COMPANY_NM_LOCAL, BIZ_ADDR, TELEPHONE, EMAIL, CONTACT
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, USER_NM, USER_ROLE, PASSWORD, TRANS_PASSWORD, PROFILE_PATH, COMPANY_NM_EN, COMPANY_NM_LOCAL, 
+    REPRESENTATIVE, HOMEPAGE, COUNTRY, REGISTER_ADDR, REGISTER_ADDR_EN, BIZ_ADDR, TELEPHONE, 
+    EMAIL, CONTACT, CONTACT_TELEPHONE, FAX, EMPLOYEE_AMOUNT, CORP_CLASSIFICATION, BIZ_DESC, 
+    MAIN_SHAREHOLDING_JSON, MAIN_MANAGERS_JSON, ASSOCIATE_COMPANY_JSON, EXPORT_BIZ_INFO_JSON, 
+    ACC_BANK_ID, ACC, ACC_NM, EXPORT_ACC_BANK_ID, EXPORT_ACC, EXPORT_ACC_NM, LOAN_AND_AMOUNT_JSON, 
+    KEY_LOAN_BANK_JSON, FINANCING_DEMAND_JSON, COMPANY_FILES_JSON, REG_TYPE, REG_TIME, 
+    REG_IP, MOD_TIME, MOD_IP, LAST_LOGIN_TIME, LAST_LOGIN_IP
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from USER_MAIN
+    where ID = #{id,jdbcType=INTEGER}
+  </select>  
+  <select id="selectPreregisters" resultMap="PreregisterResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Preregister_Column_List" />
+    from USER_MAIN
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from USER_MAIN
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tfs.register.preregister.model.UserMain" >
+    insert into USER_MAIN (ID, USER_NM, USER_ROLE, 
+      PASSWORD, TRANS_PASSWORD, PROFILE_PATH, 
+      COMPANY_NM_EN, COMPANY_NM_LOCAL, REPRESENTATIVE, 
+      HOMEPAGE, COUNTRY, REGISTER_ADDR, 
+      REGISTER_ADDR_EN, BIZ_ADDR, TELEPHONE, 
+      EMAIL, CONTACT, CONTACT_TELEPHONE, 
+      FAX, EMPLOYEE_AMOUNT, CORP_CLASSIFICATION, 
+      BIZ_DESC, MAIN_SHAREHOLDING_JSON, MAIN_MANAGERS_JSON, 
+      ASSOCIATE_COMPANY_JSON, EXPORT_BIZ_INFO_JSON, ACC_BANK_ID, 
+      ACC, ACC_NM, EXPORT_ACC_BANK_ID, 
+      EXPORT_ACC, EXPORT_ACC_NM, LOAN_AND_AMOUNT_JSON, 
+      KEY_LOAN_BANK_JSON, FINANCING_DEMAND_JSON, COMPANY_FILES_JSON, 
+      REG_TYPE, REG_TIME, REG_IP, 
+      MOD_TIME, MOD_IP, LAST_LOGIN_TIME, 
+      LAST_LOGIN_IP)
+    values (#{id,jdbcType=INTEGER}, #{userNm,jdbcType=VARCHAR}, #{userRole,jdbcType=TINYINT}, 
+      #{password,jdbcType=VARCHAR}, #{transPassword,jdbcType=VARCHAR}, #{profilePath,jdbcType=VARCHAR}, 
+      #{companyNmEn,jdbcType=VARCHAR}, #{companyNmLocal,jdbcType=VARCHAR}, #{representative,jdbcType=VARCHAR}, 
+      #{homepage,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR}, #{registerAddr,jdbcType=VARCHAR}, 
+      #{registerAddrEn,jdbcType=VARCHAR}, #{bizAddr,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR}, #{contactTelephone,jdbcType=VARCHAR}, 
+      #{fax,jdbcType=VARCHAR}, #{employeeAmount,jdbcType=INTEGER}, #{corpClassification,jdbcType=CHAR}, 
+      #{bizDesc,jdbcType=VARCHAR}, #{mainShareholdingJson,jdbcType=CHAR}, #{mainManagersJson,jdbcType=CHAR}, 
+      #{associateCompanyJson,jdbcType=CHAR}, #{exportBizInfoJson,jdbcType=CHAR}, #{accBankId,jdbcType=CHAR}, 
+      #{acc,jdbcType=VARCHAR}, #{accNm,jdbcType=VARCHAR}, #{exportAccBankId,jdbcType=CHAR}, 
+      #{exportAcc,jdbcType=VARCHAR}, #{exportAccNm,jdbcType=VARCHAR}, #{loanAndAmountJson,jdbcType=CHAR}, 
+      #{keyLoanBankJson,jdbcType=CHAR}, #{financingDemandJson,jdbcType=CHAR}, #{companyFilesJson,jdbcType=CHAR}, 
+      #{regType,jdbcType=CHAR}, #{regTime,jdbcType=TIMESTAMP}, #{regIp,jdbcType=VARCHAR}, 
+      #{modTime,jdbcType=TIMESTAMP}, #{modIp,jdbcType=VARCHAR}, #{lastLoginTime,jdbcType=TIMESTAMP}, 
+      #{lastLoginIp,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tfs.register.preregister.model.UserMain" >
+    insert into USER_MAIN
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="userNm != null" >
+        USER_NM,
+      </if>
+      <if test="userRole != null" >
+        USER_ROLE,
+      </if>
+      <if test="password != null" >
+        PASSWORD,
+      </if>
+      <if test="transPassword != null" >
+        TRANS_PASSWORD,
+      </if>
+      <if test="profilePath != null" >
+        PROFILE_PATH,
+      </if>
+      <if test="companyNmEn != null" >
+        COMPANY_NM_EN,
+      </if>
+      <if test="companyNmLocal != null" >
+        COMPANY_NM_LOCAL,
+      </if>
+      <if test="representative != null" >
+        REPRESENTATIVE,
+      </if>
+      <if test="homepage != null" >
+        HOMEPAGE,
+      </if>
+      <if test="country != null" >
+        COUNTRY,
+      </if>
+      <if test="registerAddr != null" >
+        REGISTER_ADDR,
+      </if>
+      <if test="registerAddrEn != null" >
+        REGISTER_ADDR_EN,
+      </if>
+      <if test="bizAddr != null" >
+        BIZ_ADDR,
+      </if>
+      <if test="telephone != null" >
+        TELEPHONE,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="contact != null" >
+        CONTACT,
+      </if>
+      <if test="contactTelephone != null" >
+        CONTACT_TELEPHONE,
+      </if>
+      <if test="fax != null" >
+        FAX,
+      </if>
+      <if test="employeeAmount != null" >
+        EMPLOYEE_AMOUNT,
+      </if>
+      <if test="corpClassification != null" >
+        CORP_CLASSIFICATION,
+      </if>
+      <if test="bizDesc != null" >
+        BIZ_DESC,
+      </if>
+      <if test="mainShareholdingJson != null" >
+        MAIN_SHAREHOLDING_JSON,
+      </if>
+      <if test="mainManagersJson != null" >
+        MAIN_MANAGERS_JSON,
+      </if>
+      <if test="associateCompanyJson != null" >
+        ASSOCIATE_COMPANY_JSON,
+      </if>
+      <if test="exportBizInfoJson != null" >
+        EXPORT_BIZ_INFO_JSON,
+      </if>
+      <if test="accBankId != null" >
+        ACC_BANK_ID,
+      </if>
+      <if test="acc != null" >
+        ACC,
+      </if>
+      <if test="accNm != null" >
+        ACC_NM,
+      </if>
+      <if test="exportAccBankId != null" >
+        EXPORT_ACC_BANK_ID,
+      </if>
+      <if test="exportAcc != null" >
+        EXPORT_ACC,
+      </if>
+      <if test="exportAccNm != null" >
+        EXPORT_ACC_NM,
+      </if>
+      <if test="loanAndAmountJson != null" >
+        LOAN_AND_AMOUNT_JSON,
+      </if>
+      <if test="keyLoanBankJson != null" >
+        KEY_LOAN_BANK_JSON,
+      </if>
+      <if test="financingDemandJson != null" >
+        FINANCING_DEMAND_JSON,
+      </if>
+      <if test="companyFilesJson != null" >
+        COMPANY_FILES_JSON,
+      </if>
+      <if test="regType != null" >
+        REG_TYPE,
+      </if>
+      <if test="regTime != null" >
+        REG_TIME,
+      </if>
+      <if test="regIp != null" >
+        REG_IP,
+      </if>
+      <if test="modTime != null" >
+        MOD_TIME,
+      </if>
+      <if test="modIp != null" >
+        MOD_IP,
+      </if>
+      <if test="lastLoginTime != null" >
+        LAST_LOGIN_TIME,
+      </if>
+      <if test="lastLoginIp != null" >
+        LAST_LOGIN_IP,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userNm != null" >
+        #{userNm,jdbcType=VARCHAR},
+      </if>
+      <if test="userRole != null" >
+        #{userRole,jdbcType=TINYINT},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="transPassword != null" >
+        #{transPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="profilePath != null" >
+        #{profilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="companyNmEn != null" >
+        #{companyNmEn,jdbcType=VARCHAR},
+      </if>
+      <if test="companyNmLocal != null" >
+        #{companyNmLocal,jdbcType=VARCHAR},
+      </if>
+      <if test="representative != null" >
+        #{representative,jdbcType=VARCHAR},
+      </if>
+      <if test="homepage != null" >
+        #{homepage,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="registerAddr != null" >
+        #{registerAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="registerAddrEn != null" >
+        #{registerAddrEn,jdbcType=VARCHAR},
+      </if>
+      <if test="bizAddr != null" >
+        #{bizAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null" >
+        #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="contactTelephone != null" >
+        #{contactTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeAmount != null" >
+        #{employeeAmount,jdbcType=INTEGER},
+      </if>
+      <if test="corpClassification != null" >
+        #{corpClassification,jdbcType=CHAR},
+      </if>
+      <if test="bizDesc != null" >
+        #{bizDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="mainShareholdingJson != null" >
+        #{mainShareholdingJson,jdbcType=CHAR},
+      </if>
+      <if test="mainManagersJson != null" >
+        #{mainManagersJson,jdbcType=CHAR},
+      </if>
+      <if test="associateCompanyJson != null" >
+        #{associateCompanyJson,jdbcType=CHAR},
+      </if>
+      <if test="exportBizInfoJson != null" >
+        #{exportBizInfoJson,jdbcType=CHAR},
+      </if>
+      <if test="accBankId != null" >
+        #{accBankId,jdbcType=CHAR},
+      </if>
+      <if test="acc != null" >
+        #{acc,jdbcType=VARCHAR},
+      </if>
+      <if test="accNm != null" >
+        #{accNm,jdbcType=VARCHAR},
+      </if>
+      <if test="exportAccBankId != null" >
+        #{exportAccBankId,jdbcType=CHAR},
+      </if>
+      <if test="exportAcc != null" >
+        #{exportAcc,jdbcType=VARCHAR},
+      </if>
+      <if test="exportAccNm != null" >
+        #{exportAccNm,jdbcType=VARCHAR},
+      </if>
+      <if test="loanAndAmountJson != null" >
+        #{loanAndAmountJson,jdbcType=CHAR},
+      </if>
+      <if test="keyLoanBankJson != null" >
+        #{keyLoanBankJson,jdbcType=CHAR},
+      </if>
+      <if test="financingDemandJson != null" >
+        #{financingDemandJson,jdbcType=CHAR},
+      </if>
+      <if test="companyFilesJson != null" >
+        #{companyFilesJson,jdbcType=CHAR},
+      </if>
+      <if test="regType != null" >
+        #{regType,jdbcType=CHAR},
+      </if>
+      <if test="regTime != null" >
+        #{regTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regIp != null" >
+        #{regIp,jdbcType=VARCHAR},
+      </if>
+      <if test="modTime != null" >
+        #{modTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modIp != null" >
+        #{modIp,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLoginTime != null" >
+        #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginIp != null" >
+        #{lastLoginIp,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tfs.register.preregister.model.UserMain" >
+    update USER_MAIN
+    <set >
+      <if test="userNm != null" >
+        USER_NM = #{userNm,jdbcType=VARCHAR},
+      </if>
+      <if test="userRole != null" >
+        USER_ROLE = #{userRole,jdbcType=TINYINT},
+      </if>
+      <if test="password != null" >
+        PASSWORD = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="transPassword != null" >
+        TRANS_PASSWORD = #{transPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="profilePath != null" >
+        PROFILE_PATH = #{profilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="companyNmEn != null" >
+        COMPANY_NM_EN = #{companyNmEn,jdbcType=VARCHAR},
+      </if>
+      <if test="companyNmLocal != null" >
+        COMPANY_NM_LOCAL = #{companyNmLocal,jdbcType=VARCHAR},
+      </if>
+      <if test="representative != null" >
+        REPRESENTATIVE = #{representative,jdbcType=VARCHAR},
+      </if>
+      <if test="homepage != null" >
+        HOMEPAGE = #{homepage,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        COUNTRY = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="registerAddr != null" >
+        REGISTER_ADDR = #{registerAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="registerAddrEn != null" >
+        REGISTER_ADDR_EN = #{registerAddrEn,jdbcType=VARCHAR},
+      </if>
+      <if test="bizAddr != null" >
+        BIZ_ADDR = #{bizAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        TELEPHONE = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null" >
+        CONTACT = #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="contactTelephone != null" >
+        CONTACT_TELEPHONE = #{contactTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        FAX = #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeAmount != null" >
+        EMPLOYEE_AMOUNT = #{employeeAmount,jdbcType=INTEGER},
+      </if>
+      <if test="corpClassification != null" >
+        CORP_CLASSIFICATION = #{corpClassification,jdbcType=CHAR},
+      </if>
+      <if test="bizDesc != null" >
+        BIZ_DESC = #{bizDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="mainShareholdingJson != null" >
+        MAIN_SHAREHOLDING_JSON = #{mainShareholdingJson,jdbcType=CHAR},
+      </if>
+      <if test="mainManagersJson != null" >
+        MAIN_MANAGERS_JSON = #{mainManagersJson,jdbcType=CHAR},
+      </if>
+      <if test="associateCompanyJson != null" >
+        ASSOCIATE_COMPANY_JSON = #{associateCompanyJson,jdbcType=CHAR},
+      </if>
+      <if test="exportBizInfoJson != null" >
+        EXPORT_BIZ_INFO_JSON = #{exportBizInfoJson,jdbcType=CHAR},
+      </if>
+      <if test="accBankId != null" >
+        ACC_BANK_ID = #{accBankId,jdbcType=CHAR},
+      </if>
+      <if test="acc != null" >
+        ACC = #{acc,jdbcType=VARCHAR},
+      </if>
+      <if test="accNm != null" >
+        ACC_NM = #{accNm,jdbcType=VARCHAR},
+      </if>
+      <if test="exportAccBankId != null" >
+        EXPORT_ACC_BANK_ID = #{exportAccBankId,jdbcType=CHAR},
+      </if>
+      <if test="exportAcc != null" >
+        EXPORT_ACC = #{exportAcc,jdbcType=VARCHAR},
+      </if>
+      <if test="exportAccNm != null" >
+        EXPORT_ACC_NM = #{exportAccNm,jdbcType=VARCHAR},
+      </if>
+      <if test="loanAndAmountJson != null" >
+        LOAN_AND_AMOUNT_JSON = #{loanAndAmountJson,jdbcType=CHAR},
+      </if>
+      <if test="keyLoanBankJson != null" >
+        KEY_LOAN_BANK_JSON = #{keyLoanBankJson,jdbcType=CHAR},
+      </if>
+      <if test="financingDemandJson != null" >
+        FINANCING_DEMAND_JSON = #{financingDemandJson,jdbcType=CHAR},
+      </if>
+      <if test="companyFilesJson != null" >
+        COMPANY_FILES_JSON = #{companyFilesJson,jdbcType=CHAR},
+      </if>
+      <if test="regType != null" >
+        REG_TYPE = #{regType,jdbcType=CHAR},
+      </if>
+      <if test="regTime != null" >
+        REG_TIME = #{regTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regIp != null" >
+        REG_IP = #{regIp,jdbcType=VARCHAR},
+      </if>
+      <if test="modTime != null" >
+        MOD_TIME = #{modTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modIp != null" >
+        MOD_IP = #{modIp,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLoginTime != null" >
+        LAST_LOGIN_TIME = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginIp != null" >
+        LAST_LOGIN_IP = #{lastLoginIp,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tfs.register.preregister.model.UserMain" >
+    update USER_MAIN
+    set USER_NM = #{userNm,jdbcType=VARCHAR},
+      USER_ROLE = #{userRole,jdbcType=TINYINT},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      TRANS_PASSWORD = #{transPassword,jdbcType=VARCHAR},
+      PROFILE_PATH = #{profilePath,jdbcType=VARCHAR},
+      COMPANY_NM_EN = #{companyNmEn,jdbcType=VARCHAR},
+      COMPANY_NM_LOCAL = #{companyNmLocal,jdbcType=VARCHAR},
+      REPRESENTATIVE = #{representative,jdbcType=VARCHAR},
+      HOMEPAGE = #{homepage,jdbcType=VARCHAR},
+      COUNTRY = #{country,jdbcType=VARCHAR},
+      REGISTER_ADDR = #{registerAddr,jdbcType=VARCHAR},
+      REGISTER_ADDR_EN = #{registerAddrEn,jdbcType=VARCHAR},
+      BIZ_ADDR = #{bizAddr,jdbcType=VARCHAR},
+      TELEPHONE = #{telephone,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      CONTACT = #{contact,jdbcType=VARCHAR},
+      CONTACT_TELEPHONE = #{contactTelephone,jdbcType=VARCHAR},
+      FAX = #{fax,jdbcType=VARCHAR},
+      EMPLOYEE_AMOUNT = #{employeeAmount,jdbcType=INTEGER},
+      CORP_CLASSIFICATION = #{corpClassification,jdbcType=CHAR},
+      BIZ_DESC = #{bizDesc,jdbcType=VARCHAR},
+      MAIN_SHAREHOLDING_JSON = #{mainShareholdingJson,jdbcType=CHAR},
+      MAIN_MANAGERS_JSON = #{mainManagersJson,jdbcType=CHAR},
+      ASSOCIATE_COMPANY_JSON = #{associateCompanyJson,jdbcType=CHAR},
+      EXPORT_BIZ_INFO_JSON = #{exportBizInfoJson,jdbcType=CHAR},
+      ACC_BANK_ID = #{accBankId,jdbcType=CHAR},
+      ACC = #{acc,jdbcType=VARCHAR},
+      ACC_NM = #{accNm,jdbcType=VARCHAR},
+      EXPORT_ACC_BANK_ID = #{exportAccBankId,jdbcType=CHAR},
+      EXPORT_ACC = #{exportAcc,jdbcType=VARCHAR},
+      EXPORT_ACC_NM = #{exportAccNm,jdbcType=VARCHAR},
+      LOAN_AND_AMOUNT_JSON = #{loanAndAmountJson,jdbcType=CHAR},
+      KEY_LOAN_BANK_JSON = #{keyLoanBankJson,jdbcType=CHAR},
+      FINANCING_DEMAND_JSON = #{financingDemandJson,jdbcType=CHAR},
+      COMPANY_FILES_JSON = #{companyFilesJson,jdbcType=CHAR},
+      REG_TYPE = #{regType,jdbcType=CHAR},
+      REG_TIME = #{regTime,jdbcType=TIMESTAMP},
+      REG_IP = #{regIp,jdbcType=VARCHAR},
+      MOD_TIME = #{modTime,jdbcType=TIMESTAMP},
+      MOD_IP = #{modIp,jdbcType=VARCHAR},
+      LAST_LOGIN_TIME = #{lastLoginTime,jdbcType=TIMESTAMP},
+      LAST_LOGIN_IP = #{lastLoginIp,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
